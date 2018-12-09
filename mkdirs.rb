@@ -49,9 +49,7 @@ end
     f.puts """
 require_relative '#{title_underscored}'
 
-describe '#{title_classified}'
-  def initialize
-  end
+describe '#{title_classified}' do
 end
 """
   end
