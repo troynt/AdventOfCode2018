@@ -16,23 +16,6 @@ describe 'MarbleMania' do
     expect(m.final_marble_value).to eq(1618)
   end
 
-  it 'should be able to pick proper indexes for marbles' do
-    expect(MarbleMania.pick_idx(nil, 5, 0)).to eq(0)
-
-    expect(MarbleMania.pick_idx(0, 0, 100)).to eq(0)
-
-    # 0 (1) 
-    expect(MarbleMania.pick_idx(1, 2, 2)).to eq(1)
-
-    # 0 (2) 1
-    expect(MarbleMania.pick_idx(1, 2, 3)).to eq(3)
-
-    #  0  4  2 (5) 1  3 
-    expect(MarbleMania.pick_idx(3, 2, 6)).to eq(5)
-
-  end
-
-
   it 'should be able to calculate high score for sample inputs' do
     m = init("9 players; last marble is worth 1618 points", max_rounds: 25)
     expect(m.highscore).to eq(32)
