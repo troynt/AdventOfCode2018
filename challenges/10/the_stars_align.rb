@@ -49,6 +49,7 @@ class TheStarsAlign
     xmin, xmax = x_range
     ymin, ymax = y_range
 
+    puts ""
     (ymin..ymax).each do |y|
       (xmin..xmax).each do |x|
         found = @stars.any? { |s| s.x == x && s.y == y }
