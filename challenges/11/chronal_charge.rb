@@ -132,8 +132,8 @@ class ChronalCharge
       calc_sums(x)
     end
 
-    Parallel.each((GRID_SIZE.downto(1)).to_a, in_threads: 4) do |size|
-    # (GRID_SIZE.downto(1).to_a).each do |size|
+    #Parallel.each((GRID_SIZE.downto(1)).to_a, in_threads: 4) do |size|
+    (GRID_SIZE.downto(1).to_a).each do |size|
       time_start = Time.now
 
       max_possible = max_cell_power(size)
