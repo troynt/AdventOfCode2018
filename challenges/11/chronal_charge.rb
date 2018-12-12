@@ -24,8 +24,6 @@ Coords = Struct.new(:x, :y, :size) do
 end
 
 class ChronalChargeCell
-  include Memery
-
   attr_reader(
     :x,
     :y,
