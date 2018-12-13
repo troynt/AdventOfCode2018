@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MineTrack
   attr_accessor(
     :type,
@@ -16,24 +18,22 @@ class MineTrack
     @y = y
   end
 
-=begin
-/---\
-|   |
-|   |
-\---/
-
-=end
+  # /---\
+  # |   |
+  # |   |
+  # \---/
+  #
   def self.type_from_char(char)
     case char
-    when "-", "<", ">"
+    when '-', '<', '>'
       return :hor
-    when "|", "^", "v"
+    when '|', '^', 'v'
       return :vert
-    when  "\\"
+    when '\\'
       return :ldiag
-    when "/"
+    when '/'
       return :rdiag
-    when "+"
+    when '+'
       return :inter
     end
 
@@ -42,8 +42,8 @@ class MineTrack
 
   def neighbors
     ret = {}
-    [:up, :right, :down, :left].each do |s|
-      ret[s] = self.send(s)
+    %i[up right down left].each do |s|
+      ret[s] = send(s)
     end
 
     ret
@@ -63,7 +63,7 @@ class MineTrack
     if occupied?
       contains.to_s
     else
-      { hor: "-", vert: "|", ldiag: "\\", rdiag: "/", inter: "+"  }[type]
+      { hor: '-', vert: '|', ldiag: '\\', rdiag: '/', inter: '+' }[type]
     end
   end
 
@@ -72,10 +72,10 @@ class MineTrack
   end
 
   def diag?
-    [:ldiag, :rdiag].include?(type)
+    %i[ldiag rdiag].include?(type)
   end
 
   def occupied?
-    !self.contains.nil?
+    !contains.nil?
   end
 end

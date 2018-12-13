@@ -1,4 +1,6 @@
-class MineCartCrashException < StandardError  
+# frozen_string_literal: true
+
+class MineCartCrashException < StandardError
   attr_reader(
     :track,
     :cart

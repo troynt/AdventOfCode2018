@@ -20,9 +20,7 @@ class MineCart
   )
 
   def self.init_from_char(char)
-    if !CHARS_TO_DIRS[char].nil?
-      new(CHARS_TO_DIRS[char])
-    end
+    new(CHARS_TO_DIRS[char]) unless CHARS_TO_DIRS[char].nil?
   end
 
   def track=(new_track)
@@ -33,16 +31,14 @@ class MineCart
     else
       new_track.contains = self
       if new_track.diag?
-=begin
-/-\
-| |
-\-/
-=end
+        # /-\
+        # | |
+        # \-/
         new_dir = dir
         if new_track.type == :rdiag
           new_dir = { right: :up, down: :left, up: :right, left: :down }[dir]
         elsif new_track.type == :ldiag
-          new_dir = { left: :up, down: :right, up: :left, right: :down  }[dir]
+          new_dir = { left: :up, down: :right, up: :left, right: :down }[dir]
         end
         self.dir = new_dir unless new_track.send(new_dir).nil?
       end
@@ -58,9 +54,7 @@ class MineCart
     track.y
   end
 
-  def crashed=(value)
-    @crashed = value
-  end
+  attr_writer :crashed
 
   def crashed?
     @crashed == true
@@ -72,7 +66,7 @@ class MineCart
 
   def initialize(dir)
     @dir = dir
-    @dir_cycle = [:left, :straight, :right].cycle
+    @dir_cycle = %i[left straight right].cycle
     @id = @@id += 1
     @crashed = false
   end
@@ -82,21 +76,20 @@ class MineCart
     return if turn_dir == :straight
 
     @dir = case dir
-    when :up
-      turn_dir
-    when :down
-      { left: :right, right: :left }[turn_dir]
-    when :right
-      { left: :up, right: :down }[turn_dir]
-    when :left
-      { left: :down, right: :up }[turn_dir]
+           when :up
+             turn_dir
+           when :down
+             { left: :right, right: :left }[turn_dir]
+           when :right
+             { left: :up, right: :down }[turn_dir]
+           when :left
+             { left: :down, right: :up }[turn_dir]
     end
   end
 
   def tick
     return if crashed?
 
-    cur_track = track
     next_track = track.send(dir)
 
     if next_track.nil?
@@ -104,7 +97,6 @@ class MineCart
       raise MineCartCrashException.new(track: track, cart: self)
     end
 
-  
     if next_track.occupied?
       other_cart = next_track.contains
       other_cart.crashed = true
@@ -121,12 +113,11 @@ class MineCart
         turn(new_dir)
       end
     end
-
   end
 
   def to_s
     if @crashed
-      "*".red.bold
+      '*'.red.bold
     else
       DIRS[dir].green.bold
     end
