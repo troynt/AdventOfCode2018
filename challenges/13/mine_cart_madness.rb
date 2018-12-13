@@ -63,7 +63,7 @@ class MineCartMadness
   end
 
   def to_s
-    str = ''
+    str = StringIO.new
 
     (ymin..ymax).each do |y|
       (xmin..xmax).each do |x|
@@ -76,7 +76,7 @@ class MineCartMadness
       str << "\n"
     end
 
-    str
+    str.string
   end
 
   private
